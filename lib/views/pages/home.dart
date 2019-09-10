@@ -47,87 +47,76 @@ class _HomePageState extends State<HomePage> {
               );
             }).toList(),
           ),
-          Padding(
-            padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
-            child:
+          Container(
+            padding: new EdgeInsets.only(top:10.0),
+            height: 150.0,
+            margin: new EdgeInsets.all(20.0),
+            decoration: new BoxDecoration(
+              border: Border.all(width: 2.0, color: const Color(0xcccccccc)),
+              borderRadius: BorderRadius.all(
+                  Radius.circular(10.0)
+              ),
+              boxShadow: [
+                BoxShadow(
 
-
-            Container(
-              height: 150.0,
-              margin: new EdgeInsets.all(10.0),
-              decoration: new BoxDecoration(
-                borderRadius: BorderRadius.all(
-                    Radius.circular(10.0)
+                  color: Colors.white,
+                  blurRadius: 4.0, // has the effect of softening the shadow
+                  spreadRadius: 3.0, // has the effect of extending the shadow
+                )
+              ],
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    RawMaterialButton(
+                      onPressed: () {},
+                      child: new Icon(
+                        Icons.pause,
+                        color: Colors.blue,
+                        size: 35.0,
+                      ),
+                      shape: CircleBorder(),
+                      elevation: 2.0,
+                      fillColor: Colors.white,
+                      padding: EdgeInsets.only(top: 8.0, bottom: 10.0),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(top: 8.0, bottom: 10.0),
+                      child:
+                      Text(
+                        'Hello World',
+                      ),),
+                  ],
                 ),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.white,
+                CircleIconButtonText('hello world', Icons.plus_one, null),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    RawMaterialButton(
+                      onPressed: () {},
+                      child: Image.network(
+                          "https://www.flaticon.com/premium-icon/icons/svg/1531/1531776.svg",
+                          width: 40,
+                          fit:BoxFit.fill),
+                      shape: CircleBorder(),
+                      elevation: 2.0,
+                      fillColor: Colors.blueAccent,
+                      padding: const EdgeInsets.all(15.0),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child:
+                      Text(
+                        'Hello World',
+                      ),),
+                  ],
+                ),
+              ],
+            ),
 
-                    blurRadius: 1.0, // has the effect of softening the shadow
-                    spreadRadius: 5.0, // has the effect of extending the shadow
-//                    offset: Offset(
-//                      10.0, // horizontal, move right 10
-//                      10.0, // vertical, move down 10
-//                    ),
-                  )
-                ],
-//                borderRadius: new BorderRadius.all(...),
-//                gradient: new LinearGradient(...),
-              ),
-              child: Row(
-
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      RawMaterialButton(
-                        onPressed: () {},
-                        child: new Icon(
-                          Icons.pause,
-                          color: Colors.blue,
-                          size: 35.0,
-                        ),
-                        shape: CircleBorder(),
-                        elevation: 2.0,
-                        fillColor: Colors.white,
-                        padding: EdgeInsets.only(top: 8.0, bottom: 10.0),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(top: 8.0, bottom: 10.0),
-                        child:
-                        Text(
-                          'Hello World',
-                        ),),
-                    ],
-                  ),
-                  CircleIconButtonText('hello world', Icons.plus_one, null),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      RawMaterialButton(
-                        onPressed: () {},
-                        child: Image.network(
-                            "https://www.flaticon.com/premium-icon/icons/svg/1531/1531776.svg",
-                            width: 40,
-                            fit:BoxFit.fill),
-                        shape: CircleBorder(),
-                        elevation: 2.0,
-                        fillColor: Colors.blueAccent,
-                        padding: const EdgeInsets.all(15.0),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child:
-                        Text(
-                          'Hello World',
-                        ),),
-                    ],
-                  ),
-                ],
-              ),
-
-          ),
           ),
           Row(
 
