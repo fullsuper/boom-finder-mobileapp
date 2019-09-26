@@ -35,9 +35,10 @@ class _CircleIconButtonTextState extends State<CircleIconButtonText> {
             Padding(
               padding: EdgeInsets.only(top: 8.0, bottom: 10.0),
               child:
-              Text(
-                'Hello World',
-              ),),
+                Text(
+                  'Hello World',
+                ),
+            ),
           ],
         ),
       ],
