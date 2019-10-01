@@ -8,7 +8,17 @@ class TopBar extends StatelessWidget with PreferredSizeWidget{
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: Text(this.title),
+      title: Text(
+        this.title,
+        textAlign: TextAlign.center,),
+      actions: <Widget>[
+        IconButton(
+          icon: Icon(
+            Icons.search
+          ),
+          onPressed: () {},
+        )
+      ],
     );
   }
 
