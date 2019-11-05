@@ -30,7 +30,7 @@ class _HomePageState extends State<HomePage> {
         child: ListView(
           children: <Widget>[
             Padding(
-              padding: const EdgeInsets.only(top: 5.0),
+              padding: const EdgeInsets.symmetric(vertical: 5.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.end,
@@ -59,6 +59,13 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
             ),
+
+
+
+
+
+
+
             Container(
               decoration: BoxDecoration(color: Colors.white70),
               child: CarouselSlider(
@@ -71,7 +78,10 @@ class _HomePageState extends State<HomePage> {
                   return Builder(
                     builder: (BuildContext context) {
                       return Container(
-                        width: MediaQuery.of(context).size.width,
+                        width: MediaQuery
+                            .of(context)
+                            .size
+                            .width,
                         margin: EdgeInsets.symmetric(
                             horizontal: 8.0, vertical: 10.0),
                         decoration: BoxDecoration(
@@ -80,10 +90,10 @@ class _HomePageState extends State<HomePage> {
                             fit: BoxFit.fill,
                             image: (i % 2 == 0)
                                 ? NetworkImage(
-                                    'https://www.homeinnreginaairport.ca/Content/images/room_slider.jpg')
+                                'https://www.royalplaza.com.sg/wp-content/uploads/sites/46/2016/09/4-Royal-Club-Premier-Room-in-Sunflower-Yellow-Royal-Plaza-on-Scotts.jpg')
                                 : NetworkImage(
-                                    'https://images.unsplash.com/photo-1562184552-997c461abbe6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80',
-                                  ),
+                              'https://images.unsplash.com/photo-1562184552-997c461abbe6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80',
+                            ),
                           ),
                         ),
                       );
@@ -93,26 +103,19 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
 
-            Container(
-              height: 200,
-              child:
-                  Row(
-                    children: <Widget>[
-                      Container(
-                        height: 200,
-                        color: Colors.blueAccent,
-                      ),
-                      Container(
-                        color: Colors.black,
 
-                      ),
-                      Container(
-                        color: Colors.green,
 
-                      ),
-                    ],
-                  ),
-            ),
+            /*ListView(
+              scrollDirection: Axis.vertical,
+              children:
+                List.generate(6, (index) =>
+                  FlatButton(
+
+                    color: Colors.black,
+                    child: Text('hello '),
+                  )
+                ),
+            ),*/
 
 
 
@@ -184,6 +187,64 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
             ),
+
+
+            Row(
+              children:<Widget>[
+
+                Expanded(
+
+                  child: Wrap(
+                    alignment: WrapAlignment.center,
+                    children: List.generate(6, (index) {
+                      return GestureDetector(
+                        onTap: () => {},
+                        child:
+
+                        Container(
+                          width:  MediaQuery.of(context).size.width/3 - 10,
+                          margin: EdgeInsets.all(3.0),
+                          padding: const EdgeInsets.all(5.0),
+                          alignment: Alignment.topLeft,
+                          color: Colors.white,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Image(
+                                image: NetworkImage('https://d2ile4x3f22snf.cloudfront.net/wp-content/uploads/sites/282/2018/04/23070030/Room-1.jpg'),
+                              ),
+                              Text(
+                                'hello world ',
+                                style: TextStyle(color: Colors.black, fontSize: 16.0),
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: <Widget>[
+                                  Text('what'),
+                                  Container(
+                                    child: Row(
+                                      children: <Widget>[
+                                        Text('5'),
+                                        Icon(Icons.star, size: 6.0,)
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
+                      );
+                    }),
+                  ),
+                ),
+              ],
+            ),
+
+
+
+
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: Row(
