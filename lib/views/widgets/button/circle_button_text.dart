@@ -14,34 +14,36 @@ class CircleIconButtonText extends StatefulWidget {
 class _CircleIconButtonTextState extends State<CircleIconButtonText> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
+    return RawMaterialButton(
+      padding: EdgeInsets.all(10.0),
+      onPressed: widget.action,
+      child:
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            RawMaterialButton(
-              onPressed: () {},
-              child: new Icon(
-                Icons.pause,
+            Container(
+              decoration:  BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.blueGrey
+              ),
+              child: Icon(
+                widget.icon,
                 color: Colors.blue,
                 size: 35.0,
               ),
-              shape: CircleBorder(),
-              elevation: 2.0,
-              fillColor: Colors.white,
-              padding: EdgeInsets.only(top: 8.0, bottom: 10.0),
+              padding: EdgeInsets.all(15.0),
             ),
             Padding(
-              padding: EdgeInsets.only(top: 8.0, bottom: 10.0),
-              child:
-                Text(
-                  'Hello World',
+              padding: EdgeInsets.only(top: 8.0),
+              child: Text(
+                widget.text,
+                style: TextStyle(
+                  fontSize: 18
                 ),
+              ),
             ),
           ],
         ),
-      ],
     );
   }
 }

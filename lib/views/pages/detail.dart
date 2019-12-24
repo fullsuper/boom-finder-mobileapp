@@ -1,20 +1,39 @@
-import 'dart:io';
+import 'dart:async';
 
 import 'package:badges/badges.dart';
-import 'package:boom_finder_dev/views/widgets/alert/confirmAlert.dart';
-import 'package:boom_finder_dev/views/widgets/button/circle_button_text.dart';
-import 'package:boom_finder_dev/views/widgets/card/verticalCard.dart';
+import 'package:boom_finder_dev/models/room.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import './../layouts/_layout.dart';
 
-import 'package:carousel_slider/carousel_slider.dart';
+final databaseReference = Firestore.instance;
 
 class DetailPage extends StatefulWidget {
+  static const String routeName = '/detail_room';
+  final Room room;
+
+  DetailPage({Key key, @required this.room}) : super(key: key);
+
   @override
   _DetailPageState createState() => _DetailPageState();
 }
 
+Completer<GoogleMapController> _controller = Completer();
+
 class _DetailPageState extends State<DetailPage> {
+  List<Marker> allMarkers = [];
+
+  @override
+  void initState() {
+    super.initState();
+    allMarkers.add(Marker(
+      markerId: MarkerId('currentRoomLocation'),
+      draggable: false,
+      position: LatLng(widget.room.location.latitude, widget.room.location.longitude),
+    ));
+  }
+
   @override
   Widget build(BuildContext context) {
     Widget mainContent = Center(
@@ -27,8 +46,7 @@ class _DetailPageState extends State<DetailPage> {
                 fit: BoxFit.fitWidth,
                 height: 200,
                 width: MediaQuery.of(context).size.width,
-                image: NetworkImage(
-                    'https://2486634c787a971a3554-d983ce57e4c84901daded0f67d5a004f.ssl.cf1.rackcdn.com/indian-springs-calistoga/media/indiansprings-header-theviewrooms-5c4ba99cb73c7.jpg'),
+                image: NetworkImage(widget.room.image),
               ),
             ),
             Container(
@@ -79,7 +97,7 @@ class _DetailPageState extends State<DetailPage> {
                     child: Row(
                       children: <Widget>[
                         Icon(Icons.people),
-                        Text(' Mr.Dong'),
+                        Text(' ' + widget.room.owner.toString()),
                       ],
                     ),
                   ),
@@ -87,7 +105,7 @@ class _DetailPageState extends State<DetailPage> {
                     child: Row(
                       children: <Widget>[
                         Text(
-                          '0168.504.1129',
+                          'hardcode',
                           style: TextStyle(color: Colors.white70),
                         ),
                         Icon(
@@ -103,22 +121,23 @@ class _DetailPageState extends State<DetailPage> {
             Container(
               padding: EdgeInsets.all(10),
               child: Text(
-                "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged",
+                widget.room.description,
                 style: TextStyle(color: Colors.white, fontSize: 16),
               ),
             ),
             Container(
-              padding: EdgeInsets.all(10),
-              child: Text(
-                  "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged"),
-            ),
-            Container(
-              margin: EdgeInsets.symmetric(vertical: 10),
-              color: Colors.green,
-              alignment: Alignment.center,
               height: 300,
-              padding: EdgeInsets.all(10),
-              child: Text("Map here"),
+              child: GoogleMap(
+                mapType: MapType.normal,
+                initialCameraPosition: CameraPosition(
+                  target: LatLng(widget.room.location.latitude, widget.room.location.longitude),
+                  zoom: 14.4746,
+                ),
+                markers: Set.from(allMarkers),
+                onMapCreated: (GoogleMapController controller) {
+                  _controller.complete(controller);
+                },
+              ),
             ),
             Container(
               child: Row(
@@ -133,18 +152,13 @@ class _DetailPageState extends State<DetailPage> {
                     ),
                   ),
                   Flexible(
-
-                    child:
-                      Text(
-
-                        'hllo hllohllohllohlloh llohllohllohllohllohllohlllohllohllohllohllohllohlllohllohllohllohllohllohl lohllohllohllohllohllohllohllohllohllohlloh llohllohllohllohllohllohllo',
-                        overflow: TextOverflow.ellipsis,textAlign: TextAlign.left,
-
-                        maxLines: 2,
-                      ),
-
+                    child: Text(
+                      'hllo hllohllohllohlloh llohllohllohllohllohllohlllohllohllohllohllohllohlllohllohllohllohllohllohl lohllohllohllohllohllohllohllohllohllohlloh llohllohllohllohllohllohllo',
+                      overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.left,
+                      maxLines: 2,
+                    ),
                   )
-
                 ],
               ),
             ),

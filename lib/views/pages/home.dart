@@ -1,9 +1,6 @@
-import 'dart:io';
-
 import 'package:badges/badges.dart';
-import 'package:boom_finder_dev/views/widgets/alert/confirmAlert.dart';
 import 'package:boom_finder_dev/views/widgets/button/circle_button_text.dart';
-import 'package:boom_finder_dev/views/widgets/card/verticalCard.dart';
+import 'package:boom_finder_dev/views/widgets/item/verticalCard.dart';
 import 'package:flutter/material.dart';
 import './../layouts/_layout.dart';
 
@@ -90,7 +87,8 @@ class _HomePageState extends State<HomePage> {
                             fit: BoxFit.fill,
                             image: (i % 2 == 0)
                                 ? NetworkImage(
-                                'https://www.royalplaza.com.sg/wp-content/uploads/sites/46/2016/09/4-Royal-Club-Premier-Room-in-Sunflower-Yellow-Royal-Plaza-on-Scotts.jpg')
+                                'https://q-cf.bstatic.com/images/hotel/max1024x768/134/134203664.jpg'
+                            )
                                 : NetworkImage(
                               'https://images.unsplash.com/photo-1562184552-997c461abbe6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80',
                             ),
@@ -121,12 +119,13 @@ class _HomePageState extends State<HomePage> {
 
 
             Container(
-              //padding: new EdgeInsets.only(top: 10.0),
+              padding: new EdgeInsets.all(10.0),
               //height: 150.0,
               margin: new EdgeInsets.all(10.0),
               decoration: new BoxDecoration(
                 //border: Border.all(width: 2.0, color: const Color(0xcccccccc)),
                 borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                color: Colors.white
                 /*boxShadow: [
                   BoxShadow(
                     color: Colors.white,
@@ -135,56 +134,16 @@ class _HomePageState extends State<HomePage> {
                   )
                 ],*/
               ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      RawMaterialButton(
-                        onPressed: () {},
-                        child: new Icon(
-                          Icons.pause,
-                          color: Colors.blue,
-                          size: 35.0,
-                        ),
-                        shape: CircleBorder(),
-                        elevation: 2.0,
-                        fillColor: Colors.white,
-                        padding: EdgeInsets.only(top: 8.0, bottom: 10.0),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(top: 8.0, bottom: 10.0),
-                        child: Text(
-                          'Hello World',
-                        ),
-                      ),
-                    ],
-                  ),
-                  CircleIconButtonText('hello world', Icons.plus_one, null),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      RawMaterialButton(
-                        onPressed: () {},
-                        child: Image.network(
-                            "https://www.flaticon.com/premium-icon/icons/svg/1531/1531776.svg",
-                            width: 40,
-                            fit: BoxFit.fill),
-                        shape: CircleBorder(),
-                        elevation: 2.0,
-                        fillColor: Colors.blueAccent,
-                        padding: const EdgeInsets.all(15.0),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Text(
-                          'Hello World',
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
+              child: Wrap(
+
+                alignment: WrapAlignment.center,
+                  children: <Widget>[
+                    CircleIconButtonText('All', Icons.view_agenda, () => Navigator.pushNamed(context, '/list_room')),
+                    CircleIconButtonText('New', Icons.view_agenda, () => Navigator.pushNamed(context, '/add_room')),
+                    CircleIconButtonText('Compare', Icons.view_agenda, () => Navigator.pushNamed(context, '/compare_list')),
+                    CircleIconButtonText('Search', Icons.view_agenda, () => Navigator.pushNamed(context, '/list_room')),
+
+                  ],
               ),
             ),
 
