@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import 'comment.dart';
+
 class Room {
   final String description;
   final String title;
@@ -10,6 +12,7 @@ class Room {
   final int view;
   final int like;
   final int price;
+  final List<dynamic> comments;
 
   Room(
       {this.title,
@@ -20,22 +23,19 @@ class Room {
       this.view,
       this.like,
       this.owner,
-      this.price});
+      this.price,
+      this.comments});
 
   Room.fromMap(Map<String, dynamic> map, {this.owner})
-      : assert(map['description'] != null),
-        assert(map['title'] != null),
-        assert(map['like'] != null),
-        assert(map['image'] != null),
-        assert(map['view'] != null),
-        description = map['description'].toString(),
+      : description = map['description'].toString(),
         image = map['image'].toString(),
         like = map['like'],
         location = map['location'],
         name = map['name'].toString(),
         title = map['title'].toString(),
         view = map['view'],
-        price = map['price'];
+        price = map['price'],
+        comments = map['comments'];
 
   Room.fromSnapshot(DocumentSnapshot snapshot)
       : this.fromMap(snapshot.data, owner: snapshot.reference);
@@ -49,6 +49,12 @@ class Room {
         'owner': owner,
         'view': view,
         'like': like,
-        'price': price
+        'price': price,
+        'comments': comments
       };
+
+/*  List<Comment> fromListMap(Map map){
+    return map.entries.map((comment) => Comment(commen)).toList();
+
+  }*/
 }

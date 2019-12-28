@@ -248,6 +248,7 @@ class _CompareDetailState extends State<CompareDetail> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   MaterialButton(
+                      onPressed: (){},
                       padding: EdgeInsets.all(10),
                       height: 50,
                       minWidth: 200,

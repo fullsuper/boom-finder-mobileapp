@@ -25,7 +25,7 @@ class VerticalCard extends StatelessWidget {
             ClipRect(
               child: Align(
                 alignment: Alignment.center,
-                heightFactor: 0.8,
+                heightFactor: 1,
                 child: Image.network(
                     'https://images.unsplash.com/photo-1562184552-997c461abbe6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80'),
               ),
@@ -45,8 +45,8 @@ class VerticalCard extends StatelessWidget {
               ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(left: 10, right: 10),
+            Container(
+              padding: EdgeInsets.all(15),
               child: Align(
                 alignment: Alignment.topLeft,
                 child: Text(

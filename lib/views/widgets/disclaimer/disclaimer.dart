@@ -9,7 +9,7 @@ class Disclaimer extends StatelessWidget {
       {@required this.text,
       this.paddingTop = 5,
       this.paddingBottom = 0,
-      this.color = Colors.white});
+      this.color = Colors.indigo});
 
   @override
   Widget build(BuildContext context) {

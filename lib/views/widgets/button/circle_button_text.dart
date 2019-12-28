@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class CircleIconButtonText extends StatefulWidget {
   String text;
-  IconData icon;
+  Icon icon;
   Function action;
 
   CircleIconButtonText(this.text, this.icon, this.action);
@@ -17,33 +17,38 @@ class _CircleIconButtonTextState extends State<CircleIconButtonText> {
     return RawMaterialButton(
       padding: EdgeInsets.all(10.0),
       onPressed: widget.action,
-      child:
-        Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Container(
-              decoration:  BoxDecoration(
-                shape: BoxShape.circle,
-                color: Colors.blueGrey
-              ),
-              child: Icon(
-                widget.icon,
-                color: Colors.blue,
-                size: 35.0,
-              ),
-              padding: EdgeInsets.all(15.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  begin: Alignment.topRight,
+                  end: Alignment.bottomLeft,
+                  stops: [
+                    0.1,
+                    0.4,
+                    0.9
+                  ],
+                  colors: [
+                    Colors.blue,
+                    Colors.indigo,
+                    Colors.teal
+                  ]),
+              shape: BoxShape.circle,
             ),
-            Padding(
-              padding: EdgeInsets.only(top: 8.0),
-              child: Text(
-                widget.text,
-                style: TextStyle(
-                  fontSize: 18
-                ),
-              ),
+            child: widget.icon,
+            padding: EdgeInsets.all(15.0),
+          ),
+          Padding(
+            padding: EdgeInsets.only(top: 8.0),
+            child: Text(
+              widget.text,
+              style: TextStyle(fontSize: 18),
             ),
-          ],
-        ),
+          ),
+        ],
+      ),
     );
   }
 }

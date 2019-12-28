@@ -38,6 +38,7 @@ class _AddRoomState extends State<AddRoom> {
   TextEditingController _nameController = TextEditingController();
   TextEditingController _descController = TextEditingController();
   TextEditingController _addressController = TextEditingController();
+  TextEditingController _pricingController = TextEditingController();
 
   Future _getLocation() async {
     var currentLocation = await Geolocator()
@@ -131,11 +132,14 @@ class _AddRoomState extends State<AddRoom> {
     }
 
 
+    int price = int.parse(_pricingController.text);
+
     Room newRoom = Room(
         title: _titlController.text,
         description: _descController.text,
         name: _nameController.text,
         image: widget.imageURL,
+        price: price,
         like: 0,
         view: 0,
         location: GeoPoint(
@@ -179,6 +183,19 @@ class _AddRoomState extends State<AddRoom> {
               hintText: 'Enter Description',
               lines: 4,
               fill: Colors.white,
+            ),
+            Disclaimer(
+              text: 'Price',
+            ),
+            FilledBorderTextField(
+              type: TextInputType.,
+              textEditingController: this._pricingController,
+              hintText: 'Enter price',
+              lines: 1,
+              suffixIcon: Icon(Icons.attach_money, color: Colors.green,),
+
+              fill: Colors.white,
+
             ),
             Disclaimer(
               text: 'Images',

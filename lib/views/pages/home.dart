@@ -16,33 +16,43 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     Widget mainContent = Center(
       child: Container(
-        /* decoration: BoxDecoration(
-          gradient: LinearGradient(
-              colors: [Color(0xffa1c4fd), Color(0xffc2e9fb)],
-              begin: FractionalOffset.topLeft,
-              end: FractionalOffset.bottomRight,
-              stops: [0.0, 1.1],
-              tileMode: TileMode.clamp),
-        ),*/
         child: ListView(
           children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 5.0),
+            Container(
+              decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                      begin: Alignment.topRight,
+                      end: Alignment.bottomLeft,
+                      colors: [
+                    Colors.greenAccent,
+                    Colors.orangeAccent,
+                    Colors.redAccent
+                  ])),
+              padding: const EdgeInsets.symmetric(vertical: 30.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: <Widget>[
-                  Icon(Icons.home, size: 35.0),
+                  Padding(
+                    padding: EdgeInsets.only(bottom: 7),
+                    child: Icon(
+                      Icons.location_city,
+                      size: 35.0,
+                      color: Colors.amber[400],
+                    ),
+                  ),
                   Text(
-                    ' Boom Finder ',
+                    ' Boom Finder  ',
                     style: TextStyle(
-                      fontSize: 24.0,
+                      fontSize: 35.0,
+                      wordSpacing: 10,
                       fontWeight: FontWeight.w900,
-                      color: Colors.black87,
+                      letterSpacing: 2,
+                      color: Colors.lightBlueAccent[200],
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 2.0),
+                    padding: const EdgeInsets.only(bottom: 7.0),
                     child: Badge(
                       badgeColor: Colors.green,
                       shape: BadgeShape.square,
@@ -56,29 +66,19 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
             ),
-
-
-
-
-
-
-
             Container(
               decoration: BoxDecoration(color: Colors.white70),
               child: CarouselSlider(
-                height: 120,
+                height: 200,
                 autoPlay: true,
                 enlargeCenterPage: true,
-                viewportFraction: 0.45,
+                viewportFraction: 0.8,
                 autoPlayInterval: Duration(seconds: 5),
                 items: [1, 2].map((i) {
                   return Builder(
                     builder: (BuildContext context) {
                       return Container(
-                        width: MediaQuery
-                            .of(context)
-                            .size
-                            .width,
+                        width: MediaQuery.of(context).size.width,
                         margin: EdgeInsets.symmetric(
                             horizontal: 8.0, vertical: 10.0),
                         decoration: BoxDecoration(
@@ -87,11 +87,10 @@ class _HomePageState extends State<HomePage> {
                             fit: BoxFit.fill,
                             image: (i % 2 == 0)
                                 ? NetworkImage(
-                                'https://q-cf.bstatic.com/images/hotel/max1024x768/134/134203664.jpg'
-                            )
+                                    'https://q-cf.bstatic.com/images/hotel/max1024x768/134/134203664.jpg')
                                 : NetworkImage(
-                              'https://images.unsplash.com/photo-1562184552-997c461abbe6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80',
-                            ),
+                                    'https://images.unsplash.com/photo-1562184552-997c461abbe6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80',
+                                  ),
                           ),
                         ),
                       );
@@ -100,142 +99,193 @@ class _HomePageState extends State<HomePage> {
                 }).toList(),
               ),
             ),
-
-
-
-            /*ListView(
-              scrollDirection: Axis.vertical,
-              children:
-                List.generate(6, (index) =>
-                  FlatButton(
-
-                    color: Colors.black,
-                    child: Text('hello '),
-                  )
-                ),
-            ),*/
-
-
-
-
             Container(
-              padding: new EdgeInsets.all(10.0),
-              //height: 150.0,
-              margin: new EdgeInsets.all(10.0),
-              decoration: new BoxDecoration(
-                //border: Border.all(width: 2.0, color: const Color(0xcccccccc)),
-                borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                color: Colors.white
-                /*boxShadow: [
-                  BoxShadow(
-                    color: Colors.white,
-                    blurRadius: 4.0, // has the effect of softening the shadow
-                    spreadRadius: 3.0, // has the effect of extending the shadow
-                  )
-                ],*/
-              ),
-              child: Wrap(
-
-                alignment: WrapAlignment.center,
-                  children: <Widget>[
-                    CircleIconButtonText('All', Icons.view_agenda, () => Navigator.pushNamed(context, '/list_room')),
-                    CircleIconButtonText('New', Icons.view_agenda, () => Navigator.pushNamed(context, '/add_room')),
-                    CircleIconButtonText('Compare', Icons.view_agenda, () => Navigator.pushNamed(context, '/compare_list')),
-                    CircleIconButtonText('Search', Icons.view_agenda, () => Navigator.pushNamed(context, '/list_room')),
-
-                  ],
-              ),
-            ),
-
-
-            Row(
-              children:<Widget>[
-
-                Expanded(
-
-                  child: Wrap(
-                    alignment: WrapAlignment.center,
-                    children: List.generate(6, (index) {
-                      return GestureDetector(
-                        onTap: () => {},
-                        child:
-
-                        Container(
-                          width:  MediaQuery.of(context).size.width/3 - 10,
-                          margin: EdgeInsets.all(3.0),
-                          padding: const EdgeInsets.all(5.0),
-                          alignment: Alignment.topLeft,
-                          color: Colors.white,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Image(
-                                image: NetworkImage('https://d2ile4x3f22snf.cloudfront.net/wp-content/uploads/sites/282/2018/04/23070030/Room-1.jpg'),
-                              ),
-                              Text(
-                                'hello world ',
-                                style: TextStyle(color: Colors.black, fontSize: 16.0),
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: <Widget>[
-                                  Text('what'),
-                                  Container(
-                                    child: Row(
-                                      children: <Widget>[
-                                        Text('5'),
-                                        Icon(Icons.star, size: 6.0,)
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              )
-                            ],
-                          ),
-                        ),
-                      );
-                    }),
+              margin: EdgeInsets.only(top: 30),
+              padding: EdgeInsets.fromLTRB(0,30,0,50),
+              decoration:BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(20.0),
+                      topRight: Radius.circular(20.0)),
+                  color: Colors.white
                   ),
-                ),
-              ],
+              child: Wrap(
+                alignment: WrapAlignment.center,
+                children: <Widget>[
+                  CircleIconButtonText(
+                      'All',
+                      Icon(
+                        Icons.view_array,
+                        color: Colors.amber[400],
+                        size: 30,
+                      ),
+                      () => Navigator.pushNamed(context, '/list_room')),
+                  CircleIconButtonText(
+                      'New',
+                      Icon(
+                        Icons.add_location,
+                        color: Colors.purple,
+                        size: 30,
+                      ),
+                      () => Navigator.pushNamed(context, '/add_room')),
+                  CircleIconButtonText(
+                      'Compare',
+                      Icon(
+                        Icons.compare,
+                        color: Colors.green,
+                        size: 30,
+                      ),
+                      () => Navigator.pushNamed(context, '/compare_list')),
+                  CircleIconButtonText(
+                      'Search',
+                      Icon(
+                        Icons.find_replace,
+                        color: Colors.redAccent,
+                        size: 30,
+                      ),
+                      () => Navigator.pushNamed(context, '/search_room')),
+                ],
+              ),
             ),
+            Container(
 
+              padding: EdgeInsets.only(bottom: 20),
+              color: Colors.white,
+              alignment: Alignment.center,
+              child: Text(
+                'People also viewed',
+                style: TextStyle(
+                    fontWeight: FontWeight.w900,
+                    fontSize: 30,
+                    foreground: Paint()
+                      ..shader = LinearGradient(
+                        colors: <Color>[Colors.blueAccent, Colors.greenAccent],
+                      ).createShader(Rect.fromLTWH(40.0, 5.0, 250.0, 4.0)),
+                    decorationThickness: 2
+                ),
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.only(bottom: 40),
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(bottomRight: Radius.circular(15), bottomLeft: Radius.circular(15))
+              ),              alignment: Alignment.center,
+              child: Wrap(
+                children: List.generate(5, (index) {
+                  return GestureDetector(
+                    onTap: () => {},
+                    child: Container(
+                      width: MediaQuery.of(context).size.width / 3 - 10,
+                      margin: EdgeInsets.all(3.0),
+                      padding: EdgeInsets.all(5.0),
+                      alignment: Alignment.topLeft,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(5)),
 
+                        gradient: LinearGradient(
+                            colors: <Color>[Colors.grey, Colors.blueGrey, Colors.blueAccent],
+                            stops: [0.6, 0.8, 1],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          )
+                      ),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Image(
+                            image: NetworkImage(
+                                'https://d2ile4x3f22snf.cloudfront.net/wp-content/uploads/sites/282/2018/04/23070030/Room-1.jpg'),
+                            width: 170,
+                            height: 85,
+                          ),
+                          Text(
+                            'Room ' + (index + 1).toString(),
+                            style:
+                                TextStyle(color: Colors.black, fontSize: 16.0),
+                          ),
+                          Container(
+                            padding: EdgeInsets.symmetric(vertical: 10),
+                            child: Row(
+                              children: <Widget>[
+                                Text('Rating: '),
+                                Text('5 '),
+                                Icon(
+                                  Icons.star,
+                                  size: 15.0,
+                                  color: Colors.deepOrange,
+                                )
+                              ],
+                            ),
+                          ),
+                          Container(
+                            child: Row(
+                              children: <Widget>[
+                                Text('View count: '),
+                                Text('5 '),
+                                Icon(
+                                  Icons.remove_red_eye,
+                                  size: 15.0,
+                                  color: Colors.black,
+                                )
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  );
+                }),
+              ),
+            ),
+            Container(
 
-
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              decoration: BoxDecoration(),
+              padding: const EdgeInsets.fromLTRB(20, 30, 20, 0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Text(
-                    'Newest Rooms',
-                    style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'montserrat'),
+                  Badge(
+                    badgeContent: Text(
+                      'Newest Rooms',
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: 'montserrat',
+                          color: Colors.white),
+                    ),
+                    shape: BadgeShape.square,
+                    borderRadius: 10,
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    badgeColor: Colors.blue,
                   ),
                   GestureDetector(
-                    onTap: () {
-                      //Navigator.pushNamed(context, "myRoute");
-                    },
-                    child: Text(
-                      "see All",
-                      style:
-                          TextStyle(color: Colors.blueAccent, fontSize: 16.0),
-                    ),
-                  ),
+                      onTap: () {
+                        Navigator.pushNamed(context, "/list_room");
+                      },
+                      child: Container(
+                        child: Row(
+                          children: <Widget>[
+                            Icon(Icons.arrow_right, color: Colors.white),
+                            Text(
+                              "See All",
+                              style: TextStyle(
+                                  color: Colors.white, fontSize: 16.0),
+                            ),
+                          ],
+                        ),
+                      )),
                 ],
               ),
             ),
             CarouselSlider(
+
               aspectRatio: 16 / 9,
               enableInfiniteScroll: true,
               autoPlay: false,
               viewportFraction: 1.0,
               autoPlayInterval: Duration(seconds: 5),
-              height: 300,
+              height: 400,
               items: [1, 2].map((i) {
                 return Builder(
                   builder: (BuildContext context) {
@@ -248,44 +298,61 @@ class _HomePageState extends State<HomePage> {
                 );
               }).toList(),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            Container(
+              padding: const EdgeInsets.fromLTRB(20, 30, 20, 0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Container(
                     child: Row(
                       children: <Widget>[
-                        Badge(
-                          badgeColor: Colors.redAccent,
-                          shape: BadgeShape.square,
-                          borderRadius: 20,
-                          toAnimate: false,
-                          badgeContent: Text(
-                            ' hot! ',
-                            style: TextStyle(color: Colors.white),
+                        Padding(
+                          padding: EdgeInsets.only(right: 10),
+                          child: Badge(
+                            badgeContent: Text(
+                              'Popular',
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'montserrat',
+                                  color: Colors.white70),
+                            ),
+                            shape: BadgeShape.square,
+                            borderRadius: 10,
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 10),
+                            badgeColor: Colors.blue,
                           ),
                         ),
-                        Text(
-                          ' Another search',
-                          style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                              fontFamily: 'montserrat'),
-                        ),
+                        Badge(
+                            padding: EdgeInsets.all(10),
+                            badgeColor: Colors.redAccent,
+                            shape: BadgeShape.square,
+                            borderRadius: 20,
+                            toAnimate: false,
+                            badgeContent: Text(
+                              ' hot ',
+                              style: TextStyle(fontSize: 18),
+                            )),
                       ],
                     ),
                   ),
                   GestureDetector(
-                    onTap: () {
-                      //Navigator.pushNamed(context, "myRoute");
-                    },
-                    child: Text(
-                      "see All",
-                      style:
-                          TextStyle(color: Colors.blueAccent, fontSize: 16.0),
-                    ),
-                  ),
+                      onTap: () {
+                        Navigator.pushNamed(context, "/list_room");
+                      },
+                      child: Container(
+                        child: Row(
+                          children: <Widget>[
+                            Icon(Icons.arrow_right, color: Colors.white),
+                            Text(
+                              "See All",
+                              style: TextStyle(
+                                  color: Colors.white, fontSize: 16.0),
+                            ),
+                          ],
+                        ),
+                      )),
                 ],
               ),
             ),
@@ -295,7 +362,7 @@ class _HomePageState extends State<HomePage> {
               autoPlay: false,
               viewportFraction: 1.0,
               autoPlayInterval: Duration(seconds: 5),
-              height: 300,
+              height: 400,
               items: [1, 2].map((i) {
                 return Builder(
                   builder: (BuildContext context) {

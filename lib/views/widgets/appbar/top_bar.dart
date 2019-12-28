@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class TopBar extends StatelessWidget with PreferredSizeWidget{
-  final String title;
+  String title = 'Boom Finder';
 
-  TopBar(this.title);
+  TopBar({this.title});
 
   @override
   Widget build(BuildContext context) {

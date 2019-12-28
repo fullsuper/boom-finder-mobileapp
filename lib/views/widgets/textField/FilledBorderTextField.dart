@@ -8,6 +8,7 @@ class FilledBorderTextField extends StatelessWidget {
   int lines;
   Color fill;
   TextInputType type;
+  Icon suffixIcon;
 
   FilledBorderTextField(
       {@required this.textEditingController,
@@ -16,7 +17,8 @@ class FilledBorderTextField extends StatelessWidget {
       this.verticalPadding = 20,
       this.fill,
       this.lines = 1,
-      this.type = TextInputType.text});
+      this.type = TextInputType.text,
+      this.suffixIcon});
 
   @override
   Widget build(BuildContext context) {
@@ -44,6 +46,7 @@ class FilledBorderTextField extends StatelessWidget {
           alignLabelWithHint: true,
           fillColor: this.fill,
           filled: this.fill != null,
+          suffixIcon: suffixIcon
         ),
         style: TextStyle(color: Colors.black, fontSize: 18),
       ),

@@ -5,6 +5,7 @@ import 'package:boom_finder_dev/views/pages/compare_list.dart';
 import 'package:boom_finder_dev/views/pages/detail.dart';
 import 'package:boom_finder_dev/views/pages/home.dart';
 import 'package:boom_finder_dev/views/pages/list_room.dart';
+import 'package:boom_finder_dev/views/pages/search_room.dart';
 import 'package:flutter/material.dart';
 
 class Application extends StatelessWidget {
@@ -17,6 +18,7 @@ class Application extends StatelessWidget {
         '/list_room': (context) => RoomsPage(),
         '/compare_list': (context) => CompareListRoom(),
         '/add_room': (context) => AddRoom(),
+        '/search_room': (context) => SearchRoomPage(),
         '/post': (context) => Center(
               child: Text('Post Page'),
             )
@@ -26,7 +28,7 @@ class Application extends StatelessWidget {
           case DetailPage.routeName:
             {
               return MaterialPageRoute(
-                builder: (context) => DetailPage(room: settings.arguments),
+                builder: (context) => DetailPage(room: settings.arguments as Room),
               );
             }
           case CompareDetail.routeName:

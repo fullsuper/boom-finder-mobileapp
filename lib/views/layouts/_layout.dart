@@ -15,10 +15,19 @@ class _LayoutState extends State<Layout> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xff4F78A4),
-      appBar: TopBar('Hello world'),
-      body: widget.bodyContent,
-      bottomNavigationBar: BottomBar(),
+      appBar: TopBar(title: 'Room Finder',),
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment(0.8, 0.0), // 10% of the width, so there are ten blinds.
+            colors: [Color(0xFFFFFFEE), Color(0xFF999999)], // whitish to gray
+            tileMode: TileMode.repeated,
+          )
+        ),
+        child:       widget.bodyContent,
+      ),
+      bottomNavigationBar: BottomBar(context),
     );
   }
 }

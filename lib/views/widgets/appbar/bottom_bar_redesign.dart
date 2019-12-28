@@ -1,33 +1,33 @@
 import 'package:flutter/material.dart';
 
 class BottomBar extends StatefulWidget {
+  static int selectedIndex = 0;
+
+  BottomBar(context){
+      switch(ModalRoute.of(context).settings.name){
+        case '/': selectedIndex = 0; break;
+        case '/search_room': selectedIndex = 2; break;
+        default: selectedIndex = 1; break;
+      }
+  }
+
   @override
   _BottomBarState createState() => _BottomBarState();
 }
 
 
 class _BottomBarState extends State<BottomBar> {
-  int _selectedIndex = 0;
   static const TextStyle optionStyle = TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  static const List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Index 0: Home',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 1: Business',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 2: School',
-      style: optionStyle,
-    ),
-  ];
 
   void _onItemTapped(int index) {
     setState(() {
-      _selectedIndex = index;
+      BottomBar.selectedIndex = index;
     });
+    switch(BottomBar.selectedIndex){
+      case 0: Navigator.pushNamed(context, '/'); break;
+      case 1: Navigator.pushNamed(context, '/list_room'); break;
+      default: Navigator.pushNamed(context, '/search_room'); break;
+    }
   }
 
   @override
@@ -40,15 +40,14 @@ class _BottomBarState extends State<BottomBar> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.business),
-            title: Text('Business'),
+            title: Text('Rooms'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.school),
-            title: Text('School'),
+            icon: Icon(Icons.map),
+            title: Text('Search'),
           ),
         ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.amber[400],
+        currentIndex: BottomBar.selectedIndex,
         onTap: _onItemTapped,
     );
   }
