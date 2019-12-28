@@ -188,7 +188,7 @@ class _AddRoomState extends State<AddRoom> {
               text: 'Price',
             ),
             FilledBorderTextField(
-              type: TextInputType.,
+              type: TextInputType.number,
               textEditingController: this._pricingController,
               hintText: 'Enter price',
               lines: 1,
