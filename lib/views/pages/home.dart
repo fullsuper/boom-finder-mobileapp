@@ -1,4 +1,5 @@
 import 'package:badges/badges.dart';
+import 'package:boom_finder_dev/constants/auth.dart';
 import 'package:boom_finder_dev/views/widgets/button/circle_button_text.dart';
 import 'package:boom_finder_dev/views/widgets/item/verticalCard.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +29,7 @@ class _HomePageState extends State<HomePage> {
                     Colors.orangeAccent,
                     Colors.redAccent
                   ])),
-              padding: const EdgeInsets.symmetric(vertical: 30.0),
+              padding: EdgeInsets.symmetric(vertical: 30.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.end,
@@ -52,7 +53,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 7.0),
+                    padding: EdgeInsets.only(bottom: 7.0),
                     child: Badge(
                       badgeColor: Colors.green,
                       shape: BadgeShape.square,
@@ -101,13 +102,12 @@ class _HomePageState extends State<HomePage> {
             ),
             Container(
               margin: EdgeInsets.only(top: 30),
-              padding: EdgeInsets.fromLTRB(0,30,0,50),
-              decoration:BoxDecoration(
+              padding: EdgeInsets.fromLTRB(0, 30, 0, 50),
+              decoration: BoxDecoration(
                   borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(20.0),
                       topRight: Radius.circular(20.0)),
-                  color: Colors.white
-                  ),
+                  color: Colors.white),
               child: Wrap(
                 alignment: WrapAlignment.center,
                 children: <Widget>[
@@ -147,7 +147,6 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             Container(
-
               padding: EdgeInsets.only(bottom: 20),
               color: Colors.white,
               alignment: Alignment.center,
@@ -160,16 +159,17 @@ class _HomePageState extends State<HomePage> {
                       ..shader = LinearGradient(
                         colors: <Color>[Colors.blueAccent, Colors.greenAccent],
                       ).createShader(Rect.fromLTWH(40.0, 5.0, 250.0, 4.0)),
-                    decorationThickness: 2
-                ),
+                    decorationThickness: 2),
               ),
             ),
             Container(
               padding: EdgeInsets.only(bottom: 40),
               decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.only(bottomRight: Radius.circular(15), bottomLeft: Radius.circular(15))
-              ),              alignment: Alignment.center,
+                  borderRadius: BorderRadius.only(
+                      bottomRight: Radius.circular(15),
+                      bottomLeft: Radius.circular(15))),
+              alignment: Alignment.center,
               child: Wrap(
                 children: List.generate(5, (index) {
                   return GestureDetector(
@@ -180,15 +180,17 @@ class _HomePageState extends State<HomePage> {
                       padding: EdgeInsets.all(5.0),
                       alignment: Alignment.topLeft,
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(5)),
-
-                        gradient: LinearGradient(
-                            colors: <Color>[Colors.grey, Colors.blueGrey, Colors.blueAccent],
+                          borderRadius: BorderRadius.all(Radius.circular(5)),
+                          gradient: LinearGradient(
+                            colors: <Color>[
+                              Colors.grey,
+                              Colors.blueGrey,
+                              Colors.blueAccent
+                            ],
                             stops: [0.6, 0.8, 1],
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                          )
-                      ),
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                          )),
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -239,7 +241,6 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             Container(
-
               decoration: BoxDecoration(),
               padding: const EdgeInsets.fromLTRB(20, 30, 20, 0),
               child: Row(
@@ -279,7 +280,6 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             CarouselSlider(
-
               aspectRatio: 16 / 9,
               enableInfiniteScroll: true,
               autoPlay: false,

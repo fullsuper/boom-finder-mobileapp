@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class LocationUtils {
   static Future<Position> getLocationByAddress(String address) async {
@@ -25,6 +27,16 @@ class LocationUtils {
     }
 
     return '';
+  }
+
+  static Future<void> moveToPosition(GeoPoint loc, GoogleMapController mapController) async {
+    if (mapController == null) return;
+
+    mapController.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
+      target: LatLng(loc.latitude, loc.longitude),
+      zoom: 20.0,
+      bearing: 192.8334901395799,
+    )));
   }
 }
 

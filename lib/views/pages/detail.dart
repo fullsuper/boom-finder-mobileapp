@@ -25,10 +25,12 @@ Completer<GoogleMapController> _controller = Completer();
 class _DetailPageState extends State<DetailPage> {
   List<Marker> allMarkers = [];
   TextEditingController _commentController = TextEditingController();
+  bool _isLike = false, _isComment = false;
 
   @override
   void initState() {
     super.initState();
+    countUpView();
     allMarkers.add(Marker(
         markerId: MarkerId('currentRoomLocation'),
         draggable: false,
@@ -38,6 +40,50 @@ class _DetailPageState extends State<DetailPage> {
             title: widget.room.title.toString(),
             snippet: widget.room.description.toString())));
     print(widget.room);
+  }
+
+  Future<void> countUpView() async {
+    setState(() {
+      widget.room.countUpView();
+    });
+
+    await Firestore.instance
+        .collection('Room')
+        .document(widget.room.documentId)
+        .updateData(widget.room.toJson());
+  }
+
+
+  Future<void> likeRoom() async {
+    if (!_isLike) {
+      setState(() {
+        widget.room.countUpLike();
+
+      });
+
+      await Firestore.instance
+          .collection('Room')
+          .document(widget.room.documentId)
+          .updateData(widget.room.toJson());
+
+      _isLike = true;
+    }
+  }
+
+  Future<void> addComment() async {
+    String comment = _commentController.text;
+    if (comment.isEmpty || _isComment) {
+      return;
+    }
+
+    setState(() {
+      widget.room.addComment(comment);
+    });
+
+    await Firestore.instance
+        .collection('Room')
+        .document(widget.room.documentId)
+        .updateData(widget.room.toJson());
   }
 
   @override
@@ -225,7 +271,6 @@ class _DetailPageState extends State<DetailPage> {
                 ),
                 markers: Set.from(allMarkers),
                 onMapCreated: (GoogleMapController controller) {
-                  _controller.complete(controller);
                 },
               ),
             ),
@@ -279,7 +324,7 @@ class _DetailPageState extends State<DetailPage> {
                     ),
                   ),
                   MaterialButton(
-                    onPressed: () {},
+                    onPressed:  likeRoom,
                     padding: EdgeInsets.symmetric(vertical: 10, horizontal: 40),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(10))),
@@ -398,7 +443,7 @@ class _DetailPageState extends State<DetailPage> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       RaisedButton(
-                        onPressed: (){},
+                        onPressed: addComment,
                         color: Colors.green,
                         shape: RoundedRectangleBorder(
                             borderRadius:

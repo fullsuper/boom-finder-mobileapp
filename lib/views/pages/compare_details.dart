@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:badges/badges.dart';
 import 'package:boom_finder_dev/models/room.dart';
+import 'package:boom_finder_dev/views/utils/DialogUtils.dart';
 import 'package:boom_finder_dev/views/utils/DistanceBetween.dart';
 import 'package:boom_finder_dev/views/utils/LocationUtils.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -33,8 +34,11 @@ class _CompareDetailState extends State<CompareDetail> {
 
   Future<void> _measureDistance() async {
     String address = distanceCompareController.text;
-    print(address);
-
+    //print(address);
+    if(address == null || address.isEmpty){
+      showWarningAlert(context: context, title: 'Missing address', description: 'Should Enter Address!');
+      return;
+    }
     Position pos = await LocationUtils.getLocationByAddress(address);
 
     print(pos.longitude.toString());
@@ -238,7 +242,6 @@ class _CompareDetailState extends State<CompareDetail> {
                     bearing: 10),
                 markers: markers.values.toSet(),
                 onMapCreated: (GoogleMapController controller) {
-                  _mapController.complete(controller);
                 },
               ),
             ),
@@ -248,13 +251,15 @@ class _CompareDetailState extends State<CompareDetail> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   MaterialButton(
-                      onPressed: (){},
+                      onPressed: () async{
+                        final GoogleMapController mapController = await this._mapController.future;
+                        LocationUtils.moveToPosition(widget.firstRoom.location, mapController);
+                      },
                       padding: EdgeInsets.all(10),
                       height: 50,
-                      minWidth: 200,
                       child: Row(
                         children: <Widget>[
-                          Text('Room 1'),
+                          Text('Locate'),
                           Icon(
                             Icons.location_on,
                             color: Colors.redAccent,
@@ -263,18 +268,52 @@ class _CompareDetailState extends State<CompareDetail> {
                       ),
                       focusColor: Colors.redAccent,
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20))),
-                  ButtonTheme(
-                    child: Row(
-                      children: <Widget>[
-                        Icon(
-                          Icons.location_on,
-                          color: Colors.redAccent,
-                        ),
-                        Text('Room 2')
-                      ],
-                    ),
-                  )
+                          borderRadius: BorderRadius.circular(20)
+                      )
+                  ),
+                  MaterialButton(
+                      onPressed: () async{
+                        String address = distanceCompareController.text;
+                        //print(address);
+                        if(address == null || address.isEmpty){
+                          showWarningAlert(context: context, title: 'Missing address', description: 'Should Enter Address!');
+                          return;
+                        }
+                        Position pos = await LocationUtils.getLocationByAddress(address);
+                        final GoogleMapController mapController = await this._mapController.future;
+                        LocationUtils.moveToPosition(GeoPoint(pos.latitude, pos.longitude), mapController);
+                      },
+                      minWidth: 40,
+                      color: Colors.green,
+                      padding: EdgeInsets.all(10),
+                      height: 50,
+                      child: Text('Wanted Location'),
+                      focusColor: Colors.redAccent,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20)
+                      )
+                  ),
+                  MaterialButton(
+                      onPressed: () async{
+                        final GoogleMapController mapController = await this._mapController.future;
+                        LocationUtils.moveToPosition(widget.secondRoom.location, mapController);
+                      },
+                      padding: EdgeInsets.all(10),
+                      height: 50,
+                      child: Row(
+                        children: <Widget>[
+                          Icon(
+                            Icons.location_on,
+                            color: Colors.redAccent,
+                          ),
+                          Text('Room 2'),
+                        ],
+                      ),
+                      focusColor: Colors.redAccent,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20)
+                      )
+                  ),
                 ],
               ),
             ),
@@ -366,7 +405,7 @@ class _CompareDetailState extends State<CompareDetail> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
                       Icon(
-                        Icons.attach_money,
+                        Icons.monetization_on,
                         size: 90,
                         color: Colors.green,
                       ),
@@ -407,7 +446,7 @@ class _CompareDetailState extends State<CompareDetail> {
               padding: EdgeInsets.fromLTRB(30, 20, 30, 10),
               child: Badge(
                 padding: EdgeInsets.all(10),
-                badgeColor: Color(0xaa5d5b6a),
+                badgeColor: Colors.indigo,
                 shape: BadgeShape.square,
                 borderRadius: 10,
                 badgeContent: Text(
@@ -428,7 +467,7 @@ class _CompareDetailState extends State<CompareDetail> {
                     padding: EdgeInsets.fromLTRB(40, 30, 10, 30),
                     alignment: Alignment.center,
                     width: MediaQuery.of(context).size.width * 0.45,
-                    height: MediaQuery.of(context).size.width * 0.45,
+                    height: MediaQuery.of(context).size.width * 0.6,
                     decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.all(Radius.circular(20)),
@@ -474,13 +513,32 @@ class _CompareDetailState extends State<CompareDetail> {
                             )
                           ],
                         ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            Icon(
+                              Icons.chat,
+                              size: 50,
+                              color: Colors.amber,
+                            ),
+                            Text(
+                              widget.firstRoom.comments == null ? '0' : widget.firstRoom.comments.length.toString(),
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 30,
+                              ),
+                              maxLines: 1,
+                            )
+                          ],
+                        ),
                       ],
                     )),
                 Container(
                     padding: EdgeInsets.fromLTRB(40, 30, 10, 30),
                     alignment: Alignment.center,
                     width: MediaQuery.of(context).size.width * 0.45,
-                    height: MediaQuery.of(context).size.width * 0.45,
+                    height: MediaQuery.of(context).size.width * 0.6,
                     decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.all(Radius.circular(20)),
@@ -518,6 +576,25 @@ class _CompareDetailState extends State<CompareDetail> {
                             ),
                             Text(
                               widget.secondRoom.view.toString(),
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 30,
+                              ),
+                              maxLines: 1,
+                            )
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            Icon(
+                              Icons.chat,
+                              size: 50,
+                              color: Colors.amber,
+                            ),
+                            Text(
+                              widget.secondRoom.comments == null ? '0' : widget.secondRoom.comments.length.toString(),
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 fontSize: 30,

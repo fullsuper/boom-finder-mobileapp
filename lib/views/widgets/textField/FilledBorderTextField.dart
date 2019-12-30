@@ -9,24 +9,33 @@ class FilledBorderTextField extends StatelessWidget {
   Color fill;
   TextInputType type;
   Icon suffixIcon;
+  Function onPressSuffixIcon, onSave;
+  bool isPassword;
+  Function(String) validator;
 
   FilledBorderTextField(
-      {@required this.textEditingController,
+      {this.textEditingController,
       this.hintText,
       this.horizontalPadding = 10,
       this.verticalPadding = 20,
       this.fill,
       this.lines = 1,
       this.type = TextInputType.text,
-      this.suffixIcon});
+      this.suffixIcon,
+      this.isPassword = false,
+      this.onPressSuffixIcon,
+      this.validator,
+      this.onSave});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 10),
       child: TextFormField(
+        onSaved: onSave,
+        validator: validator,
+        obscureText: this.isPassword,
         controller: this.textEditingController,
-        focusNode: FocusNode(),
         keyboardType: this.type,
         maxLines: this.lines,
         minLines: this.lines,
@@ -46,7 +55,7 @@ class FilledBorderTextField extends StatelessWidget {
           alignLabelWithHint: true,
           fillColor: this.fill,
           filled: this.fill != null,
-          suffixIcon: suffixIcon
+          suffixIcon: suffixIcon!= null ? IconButton(icon: this.suffixIcon, onPressed: this.onPressSuffixIcon,) : null
         ),
         style: TextStyle(color: Colors.black, fontSize: 18),
       ),

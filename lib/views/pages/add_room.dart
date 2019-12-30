@@ -145,10 +145,12 @@ class _AddRoomState extends State<AddRoom> {
         location: GeoPoint(
             widget._markers["Current"].position.latitude,
             widget._markers["Current"].position.longitude
-        )
+        ),
+      comments: List<dynamic>()
     );
 
     await databaseReference.collection('Room').add(newRoom.toJson());
+    Navigator.pop(context);
   }
 
   @override
@@ -270,7 +272,6 @@ class _AddRoomState extends State<AddRoom> {
                   zoom: 2.0,
                 ),
                 onMapCreated: (GoogleMapController controller) async {
-                  this._mapController.complete(controller);
                   var location = await _getLocation();
 
                   controller.animateCamera(CameraUpdate.newCameraPosition(

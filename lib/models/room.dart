@@ -1,18 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import 'comment.dart';
-
 class Room {
-  final String description;
-  final String title;
-  final String name;
-  final String image;
-  final GeoPoint location;
-  final DocumentReference owner;
-  final int view;
-  final int like;
-  final int price;
-  final List<dynamic> comments;
+  String description;
+  String title;
+  String name;
+  String image;
+  GeoPoint location;
+  DocumentReference owner;
+  int view;
+  int like;
+  int price;
+  List<dynamic> comments;
+  String documentId;
 
   Room(
       {this.title,
@@ -24,9 +23,10 @@ class Room {
       this.like,
       this.owner,
       this.price,
-      this.comments});
+      this.comments,
+      this.documentId});
 
-  Room.fromMap(Map<String, dynamic> map, {this.owner})
+  Room.fromMap(Map<String, dynamic> map, {this.owner, this.documentId})
       : description = map['description'].toString(),
         image = map['image'].toString(),
         like = map['like'],
@@ -38,7 +38,7 @@ class Room {
         comments = map['comments'];
 
   Room.fromSnapshot(DocumentSnapshot snapshot)
-      : this.fromMap(snapshot.data, owner: snapshot.reference);
+      : this.fromMap(snapshot.data, owner: snapshot.reference, documentId: snapshot.documentID);
 
   Map<String, dynamic> toJson() => <String, dynamic>{
         'description': description,
@@ -50,11 +50,25 @@ class Room {
         'view': view,
         'like': like,
         'price': price,
-        'comments': comments
+        'comments': comments,
       };
 
-/*  List<Comment> fromListMap(Map map){
-    return map.entries.map((comment) => Comment(commen)).toList();
+  void countUpView(){
+    this.view++;
+  }
 
-  }*/
+  void countUpLike(){
+    this.like++;
+  }
+
+  void addComment(String comment) {
+    List<dynamic> preComment = List<dynamic>.from(comments);
+
+    preComment.add({
+      'comment': comment,
+      'date' : Timestamp.now()
+    });
+
+    this.comments =  preComment;
+  }
 }
